@@ -5,8 +5,8 @@
  */
 package physics2D;
 
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.;
+import static junit.framework.TestCase.assertTrue;
+import org.junit.Test;
 
 /**
  *
