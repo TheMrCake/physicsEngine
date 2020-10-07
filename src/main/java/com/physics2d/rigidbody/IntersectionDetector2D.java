@@ -10,7 +10,6 @@ import static com.physics2d.util.JMath.createPoint2D;
 import static com.physics2d.util.JMath.createVector;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-import static java.lang.Math.min;
 import org.joml.Vector2f;
 
 public class IntersectionDetector2D {
@@ -315,4 +314,27 @@ public class IntersectionDetector2D {
         return circleToBox.lengthSquared() <= circle.getRadius() * circle.getRadius();
     }
     
+    // AABB vs Primitive Tests
+    
+    public static boolean AABBAndCircle(AABB box, Circle circle) {
+        return circleAndAABB(circle, box);
+    }
+    
+    public static boolean AABBAndAABB(AABB b1, AABB b2) {
+        
+    }
+    
+    private static Vector2f getInterval(AABB rect, Vector2f axis) {
+        Vector2f result = new Vector2f(0, 0);
+        
+        Vector2f min = rect.getMin();
+        Vector2f max = rect.getMax();
+        
+        Vector2f vertices[] = {
+            new Vector2f(min.x, min.y), new Vector2f(min.x, max.y),
+                new Vector2f(max.x, min.y), new Vector2f(max.x, max.y)
+        };
+        
+        
+    }
 }
