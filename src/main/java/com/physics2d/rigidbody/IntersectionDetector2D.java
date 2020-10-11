@@ -321,7 +321,7 @@ public class IntersectionDetector2D {
     }
     
     public static boolean AABBAndAABB(AABB b1, AABB b2) {
-        
+        return true;
     }
     
     private static Vector2f getInterval(AABB rect, Vector2f axis) {
@@ -335,6 +335,6 @@ public class IntersectionDetector2D {
                 new Vector2f(max.x, min.y), new Vector2f(max.x, max.y)
         };
         
-        
+        return new Vector2f();
     }
 }
