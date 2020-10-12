@@ -1,6 +1,7 @@
 package com.physics2d.primitives;
 
 import com.physics2d.rigidbody.Rigidbody2D;
+import com.physics2d.util.JMath;
 import org.joml.Vector2f;
 
 public class Box2D {
@@ -17,11 +18,11 @@ public class Box2D {
         this.size = new Vector2f(max).sub(min);
     }
 
-    public Vector2f getMin() {
+    public Vector2f getLocalMin() {
         return new Vector2f(this.rigidbody.getPosition()).sub(this.halfSize);
     }
 
-    public Vector2f getMax() {
+    public Vector2f getLocalMax() {
         return new Vector2f(this.rigidbody.getPosition()).add(this.halfSize);
     }
     
@@ -30,8 +31,8 @@ public class Box2D {
     }
 
     public Vector2f[] getVertices() {
-        Vector2f min = getMin();
-        Vector2f max = getMax();
+        Vector2f min = getLocalMin();
+        Vector2f max = getLocalMax();
 
         Vector2f[] vertices = {
             new Vector2f(min.x, min.y), new Vector2f(min.x, max.y),
@@ -42,7 +43,7 @@ public class Box2D {
             for (Vector2f vert : vertices) {
                 // TODO: IMPLEMENT ME
                 // Rotates point(Vector2f) about center(Vecotr2f) by rotation(float in degrees)
-                // JMath.rotate(vert, this.rigidbody.getPosition(), this.rigidbody.getRotation());
+                JMath.rotate(vert, this.rigidbody.getRotation(), this.rigidbody.getPosition());
             }
         }
 

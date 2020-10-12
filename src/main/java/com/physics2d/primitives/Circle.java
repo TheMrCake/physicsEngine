@@ -18,4 +18,8 @@ public class Circle {
     public Vector2f getCenter() {
         return body.getPosition();
     }
+    
+    public void setRadius(float r) {
+        this.radius = r;
+    }
 }

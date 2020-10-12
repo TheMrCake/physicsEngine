@@ -5,6 +5,7 @@
  */
 package com.frontEnd.userInterface;
 
+import com.physics2d.primitives.Circle;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -187,16 +188,17 @@ public class MainJFrame extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new MainJFrame().setVisible(true);
+                
+                
             }
         });
     }
     
     class Panel2 extends JPanel implements ActionListener{
         Timer timer = new Timer(1000, this);
-        private int counter = 0;
         
         Panel2() {
-            setPreferredSize(new Dimension(400, 400));
+            setPreferredSize(new Dimension(1000, 800));
             setBackground(Color.WHITE);
             setForeground(Color.BLACK);
             refreshScreen();
@@ -205,10 +207,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
         @Override
         public void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.drawRect(200+counter, 200, 200, 200);
-            counter++;
-            System.out.println(counter);
+            super.paintComponent(g);      
         }
 
         @Override

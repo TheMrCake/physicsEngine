@@ -51,8 +51,8 @@ public class IntersectionDetector2D {
         JMath.rotate(pointLocalBoxSpace, box.getRigidbody().getRotation(), 
                 box.getRigidbody().getPosition());
         
-        Vector2f min = box.getMin();
-        Vector2f max = box.getMax();
+        Vector2f min = box.getLocalMin();
+        Vector2f max = box.getLocalMax();
 
         return pointLocalBoxSpace.x <= max.x && min.x <= pointLocalBoxSpace.x
                 && pointLocalBoxSpace.y <= max.y && min.y <= pointLocalBoxSpace.y;
@@ -118,7 +118,7 @@ public class IntersectionDetector2D {
         JMath.rotate(localEnd, theta, center);
         
         Line2D localLine = new Line2D.Float(createPoint2D(localStart), createPoint2D(localEnd));
-        AABB aabb = new AABB(box.getMin(), box.getMax());
+        AABB aabb = new AABB(box.getLocalMin(), box.getLocalMax());
         
         return lineAndAABB(localLine, aabb);
     }
@@ -314,27 +314,114 @@ public class IntersectionDetector2D {
         return circleToBox.lengthSquared() <= circle.getRadius() * circle.getRadius();
     }
     
+    // ==================================
     // AABB vs Primitive Tests
+    // ==================================
     
     public static boolean AABBAndCircle(AABB box, Circle circle) {
         return circleAndAABB(circle, box);
     }
     
-    public static boolean AABBAndAABB(AABB b1, AABB b2) {
+    public static boolean AABBAndAABBB(AABB b1, AABB b2) {
+        Vector2f axesToTest[] = {new Vector2f(0, 1), new Vector2f(1, 0)};
+        for (Vector2f axesToTest1 : axesToTest) {
+            if (!overlapOnAxis(b1, b2, axesToTest1)) {
+                return false;
+            }
+        }
         return true;
     }
     
-    private static Vector2f getInterval(AABB rect, Vector2f axis) {
-        Vector2f result = new Vector2f(0, 0);
-        
-        Vector2f min = rect.getMin();
-        Vector2f max = rect.getMax();
-        
-        Vector2f vertices[] = {
-            new Vector2f(min.x, min.y), new Vector2f(min.x, max.y),
-                new Vector2f(max.x, min.y), new Vector2f(max.x, max.y)
+    public static boolean AABBAndBox2D(AABB b1, Box2D b2) {
+        Vector2f axesToTest[] = {
+            new Vector2f(0, 1), new Vector2f(1, 0), 
+            new Vector2f(0, 1), new Vector2f(1, 0) 
         };
         
-        return new Vector2f();
+        JMath.rotate(axesToTest[2], b2.getRigidbody().getRotation(), new Vector2f());
+        JMath.rotate(axesToTest[3], b2.getRigidbody().getRotation(), new Vector2f());
+        
+        for (Vector2f axesToTest1 : axesToTest) {
+            if (!overlapOnAxis(b1, b2, axesToTest1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
+    // ==================================
+    // AABB vs Primitive Tests
+    // ==================================
+    
+    private static Vector2f getInterval(AABB rect, Vector2f axis) {
+        Vector2f result = new Vector2f(0, 0);
+
+        Vector2f min = rect.getMin();
+        Vector2f max = rect.getMax();
+
+        Vector2f vertices[] = {
+            new Vector2f(min.x, min.y), new Vector2f(min.x, max.y),
+            new Vector2f(max.x, min.y), new Vector2f(max.x, max.y)
+        };
+
+        result.x = axis.dot(vertices[0]);
+        result.y = result.x;
+        for (int i=1; i < 4; i++) {
+            float projection = axis.dot(vertices[i]);
+            if (projection < result.x) {
+                result.x = projection;
+            }
+            if (projection > result.y) {
+                result.y = projection;
+            }
+        }
+        return result;
+    }
+    
+    private static Vector2f getInterval(Box2D rect, Vector2f axis) {
+        Vector2f result = new Vector2f(0, 0);
+
+        Vector2f vertices[] = rect.getVertices();
+
+        result.x = axis.dot(vertices[0]);
+        result.y = result.x;
+        for (int i=1; i < 4; i++) {
+            float projection = axis.dot(vertices[i]);
+            if (projection < result.x) {
+                result.x = projection;
+            }
+            if (projection > result.y) {
+                result.y = projection;
+            }
+        }
+        return result;
+    }
+
+    private static boolean overlapOnAxis(AABB b1, AABB b2, Vector2f axis) {
+        Vector2f interval1 = getInterval(b1, axis);
+        Vector2f interval2 = getInterval(b2, axis);
+        
+        return((interval2.x <= interval1.y) && (interval1.x <= interval2.y));
+    }
+    
+    private static boolean overlapOnAxis(Box2D b1, AABB b2, Vector2f axis) {
+        Vector2f interval1 = getInterval(b1, axis);
+        Vector2f interval2 = getInterval(b2, axis);
+        
+        return((interval2.x <= interval1.y) && (interval1.x <= interval2.y));
+    }
+    
+    private static boolean overlapOnAxis(AABB b1, Box2D b2, Vector2f axis) {
+        Vector2f interval1 = getInterval(b1, axis);
+        Vector2f interval2 = getInterval(b2, axis);
+        
+        return((interval2.x <= interval1.y) && (interval1.x <= interval2.y));
+    }
+    
+    private static boolean overlapOnAxis(Box2D b1, Box2D b2, Vector2f axis) {
+        Vector2f interval1 = getInterval(b1, axis);
+        Vector2f interval2 = getInterval(b2, axis);
+        
+        return((interval2.x <= interval1.y) && (interval1.x <= interval2.y));
     }
 }
