@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Scanner;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -196,6 +197,7 @@ public class MainJFrame extends javax.swing.JFrame {
     
     class Panel2 extends JPanel implements ActionListener{
         Timer timer = new Timer(1000, this);
+        private int count = 0;
         
         Panel2() {
             setPreferredSize(new Dimension(1000, 800));
@@ -207,7 +209,7 @@ public class MainJFrame extends javax.swing.JFrame {
         
         @Override
         public void paintComponent(Graphics g) {
-            super.paintComponent(g);      
+            super.paintComponent(g);
         }
 
         @Override
@@ -220,6 +222,7 @@ public class MainJFrame extends javax.swing.JFrame {
         public void refreshScreen() {
             timer = new Timer(0, (ActionEvent e) -> {
                 repaint();
+                count++;
             });
             timer.setRepeats(true);
             // Aprox. 60 FPS
