@@ -7,8 +7,14 @@ public class Circle {
     private float radius;
     private Rigidbody2D body = null;
 
-    public Circle(float radius) {
+    public Circle(float radius, Vector2f pos) {
         this.radius = radius;
+        body = new Rigidbody2D(pos, 0);
+    }
+    
+    public Circle(float radius, int x, int y) {
+        this.radius = radius;
+        body = new Rigidbody2D(new Vector2f(x, y), 0);
     }
 
     public float getRadius() {
@@ -21,5 +27,9 @@ public class Circle {
     
     public void setRadius(float r) {
         this.radius = r;
+    }
+    
+    public void setBody(Rigidbody2D bod) {
+        this.body = bod;
     }
 }

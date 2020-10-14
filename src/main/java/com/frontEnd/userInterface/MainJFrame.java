@@ -5,13 +5,15 @@
  */
 package com.frontEnd.userInterface;
 
+import com.frontEnd.draw2d.draw2D;
+import com.physics2d.primitives.AABB;
+import com.physics2d.primitives.Box2D;
 import com.physics2d.primitives.Circle;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Scanner;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -20,7 +22,16 @@ import javax.swing.Timer;
  * @author anton
  */
 public class MainJFrame extends javax.swing.JFrame {
-
+    private final int CIRCLE = 0;
+    private final int BOX = 1;
+    private final int AABB = 2;
+    
+    private Circle circle = null;
+    private Box2D box2d = null;
+    private AABB aabb = null;
+    
+    private int flag = -1;
+    
     /**
      * Creates new form MainJFrame
      */
@@ -43,6 +54,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -54,7 +66,6 @@ public class MainJFrame extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(600, 400));
         setSize(new java.awt.Dimension(600, 400));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(4, 4));
@@ -93,6 +104,14 @@ public class MainJFrame extends javax.swing.JFrame {
 
         jMenuItem2.setText("Open Scene");
         jMenu1.add(jMenuItem2);
+
+        jMenuItem10.setText("New Circle");
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem10);
 
         jMenuBar1.add(jMenu1);
 
@@ -158,6 +177,12 @@ public class MainJFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        circle = new Circle(4, 100, 130);
+        
+        flag = 0;
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -210,6 +235,24 @@ public class MainJFrame extends javax.swing.JFrame {
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
+            
+            switch(flag) {
+                case 0:
+                    draw2D.drawCircle(g, circle);
+                    circle = null;
+                    // flag = -1;
+                    break;
+                case 1:
+                    draw2D.drawBox2D(g, box2d);
+                    box2d = null;
+                    // flag = -1;
+                    break;
+                case 2:
+                    draw2D.drawAABB(g, AABB);
+                    aabb = null;
+                    // flag = -1;
+                    break;
+            }
         }
 
         @Override
@@ -237,6 +280,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;

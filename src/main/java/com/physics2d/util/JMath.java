@@ -52,4 +52,9 @@ public class JMath {
         return vector;
     }
     
+    public static Point2D createPoint2D(Vector2f point) {
+        Point2D vector = new Point2D.Float((float)point.x(), (float)point.y());
+        return vector;
+    }
+    
 }

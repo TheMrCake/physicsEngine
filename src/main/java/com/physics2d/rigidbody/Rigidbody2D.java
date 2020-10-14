@@ -6,6 +6,11 @@ public class Rigidbody2D {
     private Vector2f position = new Vector2f();
     private float rotation = 0.0f;
 
+    public Rigidbody2D(Vector2f pos, float rot) {
+        this.position = pos;
+        this.rotation = rot;
+    }
+    
     public void setPosition(Vector2f position) {
         this.position = position;
     }
