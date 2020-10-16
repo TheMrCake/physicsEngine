@@ -6,14 +6,13 @@
 package com.frontEnd.userInterface;
 
 import com.frontEnd.draw2d.draw2D;
-import com.physics2d.primitives.AABB;
-import com.physics2d.primitives.Box2D;
-import com.physics2d.primitives.Circle;
+import com.physics2d.primitives.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -22,16 +21,18 @@ import javax.swing.Timer;
  * @author anton
  */
 public class MainJFrame extends javax.swing.JFrame {
+    private ArrayList<Shape2D> listOfShapes = new ArrayList<>();
+    
     private final int CIRCLE = 0;
     private final int BOX = 1;
     private final int AABB = 2;
     
-    private Circle circle = null;
+    /*private Circle circle = null;
     private Box2D box2d = null;
     private AABB aabb = null;
     
     private int flag = -1;
-    
+    */
     /**
      * Creates new form MainJFrame
      */
@@ -178,9 +179,8 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        circle = new Circle(4, 100, 130);
-        
-        flag = 0;
+        Circle circle = new Circle(4, 100, 130);
+        listOfShapes.add(circle);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
@@ -236,7 +236,21 @@ public class MainJFrame extends javax.swing.JFrame {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
             
-            switch(flag) {
+            for(Shape2D i: listOfShapes) {
+                switch(i.getShape()) {
+                    case CIRCLE:
+                        draw2D.drawCircle(g, (Circle) i);
+                        break;
+                    case BOX:
+                        draw2D.drawBox2D(g, (Box2D) i);
+                        break;
+                    case AABB:
+                        draw2D.drawAABB(g, (AABB) i);
+                        break;
+                }
+            }
+            
+            /*switch(flag) {
                 case 0:
                     draw2D.drawCircle(g, circle);
                     circle = null;
@@ -252,7 +266,7 @@ public class MainJFrame extends javax.swing.JFrame {
                     aabb = null;
                     // flag = -1;
                     break;
-            }
+            }*/
         }
 
         @Override

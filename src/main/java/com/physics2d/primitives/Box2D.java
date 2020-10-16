@@ -4,7 +4,7 @@ import com.physics2d.rigidbody.Rigidbody2D;
 import com.physics2d.util.JMath;
 import org.joml.Vector2f;
 
-public class Box2D {
+public class Box2D extends Shape2D {
     private Vector2f size = new Vector2f();
     private Vector2f halfSize;
     private Rigidbody2D rigidbody = null;
@@ -52,5 +52,19 @@ public class Box2D {
     
     public Rigidbody2D getRigidbody() {
         return rigidbody;
+    }
+    
+    public void setRigidbody(Rigidbody2D rb) {
+        this.rigidbody = rb;
+    }
+    
+    public void setSize(Vector2f size) {
+        this.size.set(size);
+        this.halfSize.set(size.x / 2.0f, size.y / 2.0f);
+    }
+    
+    @Override
+    public int getShape() {
+        return 1;
     }
 }

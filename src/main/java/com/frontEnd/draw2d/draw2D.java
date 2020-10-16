@@ -5,8 +5,7 @@
  */
 package com.frontEnd.draw2d;
 
-import com.physics2d.primitives.Box2D;
-import com.physics2d.primitives.Circle;
+import com.physics2d.primitives.*;
 import java.awt.Graphics;
 
 /**
@@ -19,15 +18,14 @@ public class draw2D {
         int width = (int) (2*c.getRadius());
         int positionX = (int) (c.getCenter().x);
         int positionY = (int) (c.getCenter().y);
-        
-        g.drawOval(width, width, positionX, positionY);
+        g.drawOval(positionX, positionY, width, width);
     }
 
     public static void drawBox2D(Graphics g, Box2D box2d) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public static void drawAABB(Graphics g, int AABB) {
+    public static void drawAABB(Graphics g, AABB AABB) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
