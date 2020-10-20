@@ -9,6 +9,6 @@ package com.physics2d.primitives;
  *
  * @author anton
  */
-public abstract class Shape2D {
+public abstract class Shape2D extends Collider2D{
     public abstract int getShape();
 }

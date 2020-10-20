@@ -1,9 +1,12 @@
 package com.physics2d.rigidbody;
 
+import com.physics2d.primitives.Collider2D;
 import org.joml.Vector2f;
 
 public class Rigidbody2D {
     // private Transform rawTransform
+    
+    private Collider2D collider;
     
     private Vector2f position = new Vector2f();
     private float rotation = 0.0f;
@@ -19,6 +22,7 @@ public class Rigidbody2D {
     private float angularDamping = 0.0f;
     
     private boolean fixedRotation = false;
+    
     
     public Rigidbody2D(Vector2f pos, float rot) {
         this.position = pos;
@@ -82,9 +86,22 @@ public class Rigidbody2D {
         this.forceAccum.zero();
     }
     
+    public boolean hasInfiniteMass() {
+        return this.mass == 0.0f;
+    }
+    
     public void addForce(Vector2f force) {
         this.forceAccum.add(force);
     }
+    
+    public void setCollider(Collider2D collider) {
+        this.collider = collider;
+    }
+    
+    public Collider2D getCollider() {
+        return this.collider;
+    }
+    
     
     /*
     public void syncCollisionTransforms() {

@@ -13,14 +13,26 @@ import org.joml.Vector2f;
  * @author anton
  */
 public class CollisionManifold {
+    private boolean isColliding;
     private Vector2f normal;
     private List<Vector2f> contactPoints;
     private float depth;
 
-    public CollisionManifold(Vector2f normal, List<Vector2f> contactPoints, float depth) {
+    public CollisionManifold(Vector2f normal, float depth) {
         this.normal = normal;
         this.contactPoints = contactPoints;
         this.depth = depth;
+        this.isColliding = false;
+    }
+
+    public CollisionManifold() {
+        this.normal = new Vector2f();
+        this.depth = 0.0f;
+        this.isColliding = false;
+    }
+    
+    public void addContactPoint(Vector2f contact) {
+        this.contactPoints.add(contact);
     }
 
     public Vector2f getNormal() {
@@ -45,6 +57,10 @@ public class CollisionManifold {
 
     public void setDepth(float depth) {
         this.depth = depth;
+    }
+
+    public boolean isColliding() {
+        return this.isColliding;
     }
     
     

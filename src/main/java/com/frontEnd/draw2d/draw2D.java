@@ -22,11 +22,16 @@ public class draw2D {
     }
 
     public static void drawBox2D(Graphics g, Box2D box2d) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int width;
+        // int x = (int) (box2d.get);
+        int y;
+        // g.drawRect(, width, width, width);
     }
 
     public static void drawAABB(Graphics g, AABB AABB) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int width = (int) (AABB.getMax().x - AABB.getMin().x);
+        int height = (int) (AABB.getMax().y - AABB.getMin().y);
+        g.drawRect((int) AABB.getMin().x, (int) AABB.getMax().y, width, height);
     }
     
 }

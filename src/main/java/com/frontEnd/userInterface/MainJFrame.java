@@ -15,6 +15,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import org.joml.Random;
 
 /**
  *
@@ -179,7 +180,9 @@ public class MainJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
-        Circle circle = new Circle(4, 100, 130);
+        Random num = new Random();
+        
+        Circle circle = new Circle(num.nextInt(200), num.nextInt(200), num.nextInt(200));
         listOfShapes.add(circle);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
