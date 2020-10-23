@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import org.joml.Random;
+import com.physics2d.PhysicsSystem2D;
+import org.joml.Vector2f;
 
 /**
  *
@@ -218,6 +220,8 @@ public class MainJFrame extends javax.swing.JFrame {
             public void run() {
                 new MainJFrame().setVisible(true);
                 
+                Vector2f g = new Vector2f(0, -9.81f);
+                PhysicsSystem2D physicsSystem = new PhysicsSystem2D(2, g);
                 
             }
         });

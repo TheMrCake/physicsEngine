@@ -1,4 +1,6 @@
 
+package com.physics2d;
+
 import com.physics2d.forces.ForceRegistry;
 import com.physics2d.forces.Gravity2D;
 import com.physics2d.primitives.Collider2D;
