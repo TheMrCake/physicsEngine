@@ -21,6 +21,9 @@ public class Rigidbody2D {
     private float linearDamping = 0.0f;
     private float angularDamping = 0.0f;
     
+    // Coeff of restitution
+    private float cor = 1.0f;
+    
     private boolean fixedRotation = false;
     
     
@@ -103,6 +106,7 @@ public class Rigidbody2D {
     }
     
     
+    
     /*
     public void syncCollisionTransforms() {
         if(rawTransform != null) {
@@ -115,4 +119,30 @@ public class Rigidbody2D {
         this.position.set(rawTransform.position);
     }
     */
+
+    public Vector2f getLinearVelocity() {
+        return linearVelocity;
+    }
+
+    public void setLinearVelocity(Vector2f linearVelocity) {
+        this.linearVelocity = linearVelocity;
+    }
+
+    public float getLinearDamping() {
+        return linearDamping;
+    }
+
+    public void setLinearDamping(float linearDamping) {
+        this.linearDamping = linearDamping;
+    }
+
+    public float getCor() {
+        return cor;
+    }
+
+    public void setCor(float cor) {
+        this.cor = cor;
+    }
+    
+    
 }
