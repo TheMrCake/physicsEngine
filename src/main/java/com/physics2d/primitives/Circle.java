@@ -32,6 +32,10 @@ public class Circle extends Shape2D{
     public void setRigidbody(Rigidbody2D bd) {
         this.rigidbody = bd;
     }
+
+    public Rigidbody2D getRigidbody() {
+        return rigidbody;
+    }
     
     @Override
     public int getShape() {

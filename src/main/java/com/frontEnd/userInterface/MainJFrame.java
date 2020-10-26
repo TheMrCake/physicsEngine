@@ -17,6 +17,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import org.joml.Random;
 import com.physics2d.PhysicsSystem2D;
+import com.physics2d.rigidbody.Rigidbody2D;
 import org.joml.Vector2f;
 
 /**
@@ -183,9 +184,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         Random num = new Random();
-        
         Circle circle = new Circle(num.nextInt(200), num.nextInt(200), num.nextInt(200));
         listOfShapes.add(circle);
+        getPanel().getPhysicsSystem().addRigidbody(circle.getRigidbody(), true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
@@ -220,23 +221,31 @@ public class MainJFrame extends javax.swing.JFrame {
             public void run() {
                 new MainJFrame().setVisible(true);
                 
-                Vector2f g = new Vector2f(0, -9.81f);
-                PhysicsSystem2D physicsSystem = new PhysicsSystem2D(2, g);
-                
             }
         });
     }
     
-    class Panel2 extends JPanel implements ActionListener{
+    public Panel2 getPanel() { return (Panel2) this.jPanel1; }
+    
+    public class Panel2 extends JPanel implements ActionListener{
         Timer timer = new Timer(1000, this);
-        private int count = 0;
+        
+        private PhysicsSystem2D physicsSystem;
+        
+        public void setPhysicsSystem(PhysicsSystem2D physicsSystem, Vector2f g) {
+            physicsSystem = new PhysicsSystem2D(2, g);
+        }
+        
+        public PhysicsSystem2D getPhysicsSystem() {
+            return physicsSystem;
+        }
         
         Panel2() {
             setPreferredSize(new Dimension(1000, 800));
             setBackground(Color.WHITE);
             setForeground(Color.BLACK);
+            physicsSystem = new PhysicsSystem2D(16.666f, new Vector2f(-9.81f));
             refreshScreen();
-            
         }
         
         @Override
@@ -286,7 +295,6 @@ public class MainJFrame extends javax.swing.JFrame {
         public void refreshScreen() {
             timer = new Timer(0, (ActionEvent e) -> {
                 repaint();
-                count++;
             });
             timer.setRepeats(true);
             // Aprox. 60 FPS
