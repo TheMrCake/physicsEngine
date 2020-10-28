@@ -22,7 +22,9 @@ public class Gravity2D implements ForceGenerator {
     
     @Override
     public void updateForce(Rigidbody2D body, float dt) {
+        Vector2f g = new Vector2f(gravity).mul(body.getMass());
         body.addForce(new Vector2f(gravity).mul(body.getMass()));
+        System.out.println(g.x);
     }
     
 }

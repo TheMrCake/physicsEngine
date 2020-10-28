@@ -185,6 +185,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         Random num = new Random();
         Circle circle = new Circle(num.nextInt(200), num.nextInt(200), num.nextInt(200));
+        circle.getRigidbody().setMass(1);
         listOfShapes.add(circle);
         getPanel().getPhysicsSystem().addRigidbody(circle.getRigidbody(), true);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
@@ -244,7 +245,7 @@ public class MainJFrame extends javax.swing.JFrame {
             setPreferredSize(new Dimension(1000, 800));
             setBackground(Color.WHITE);
             setForeground(Color.BLACK);
-            physicsSystem = new PhysicsSystem2D(16.666f, new Vector2f(-9.81f));
+            physicsSystem = new PhysicsSystem2D(16.0f, new Vector2f(-9.81f));
             refreshScreen();
         }
         
@@ -294,6 +295,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
         public void refreshScreen() {
             timer = new Timer(0, (ActionEvent e) -> {
+                physicsSystem.fixedUpdate();
                 repaint();
             });
             timer.setRepeats(true);

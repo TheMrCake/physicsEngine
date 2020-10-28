@@ -17,7 +17,7 @@ public class draw2D {
     public static void drawCircle(Graphics g, Circle c) {
         int width = (int) (2*c.getRadius());
         int positionX = (int) (c.getCenter().x);
-        int positionY = (int) (c.getCenter().y);
+        int positionY = (int) (0-(c.getCenter().y/100));
         g.drawOval(positionX, positionY, width, width);
     }
 
