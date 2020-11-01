@@ -26,7 +26,7 @@ import org.joml.Vector2f;
  */
 public class MainJFrame extends javax.swing.JFrame {
     private ArrayList<Shape2D> listOfShapes = new ArrayList<>();
-    
+    private final float meter = 100f; // One vector2f unit = 50 pixels
     private final int CIRCLE = 0;
     private final int BOX = 1;
     private final int AABB = 2;
@@ -71,7 +71,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setSize(new java.awt.Dimension(600, 400));
+        setPreferredSize(new java.awt.Dimension(1000, 800));
+        setSize(new java.awt.Dimension(1000, 800));
 
         jPanel1.setPreferredSize(new java.awt.Dimension(4, 4));
 
@@ -83,7 +84,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 376, Short.MAX_VALUE)
+            .addGap(0, 400, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -167,7 +168,7 @@ public class MainJFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
@@ -184,10 +185,13 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         Random num = new Random();
-        Circle circle = new Circle(num.nextInt(200), num.nextInt(200), num.nextInt(200));
+        Circle circle = new Circle(num.nextFloat()+num.nextInt(2)/meter, new Vector2f(num.nextInt(
+                this.getPanel().getSize().width)/meter, num.nextInt(this.getPanel().getSize().height)/meter));
         circle.getRigidbody().setMass(1);
+        circle.getRigidbody().setCollider(circle);
         listOfShapes.add(circle);
-        getPanel().getPhysicsSystem().addRigidbody(circle.getRigidbody(), true);
+        boolean f = (num.nextInt(3)>=1);
+        getPanel().getPhysicsSystem().addRigidbody(circle.getRigidbody(), f);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
@@ -245,14 +249,13 @@ public class MainJFrame extends javax.swing.JFrame {
             setPreferredSize(new Dimension(1000, 800));
             setBackground(Color.WHITE);
             setForeground(Color.BLACK);
-            physicsSystem = new PhysicsSystem2D(16.0f, new Vector2f(-9.81f));
+            physicsSystem = new PhysicsSystem2D(16.0f, new Vector2f(0, -4f));
             refreshScreen();
         }
         
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            
             for(Shape2D i: listOfShapes) {
                 switch(i.getShape()) {
                     case CIRCLE:

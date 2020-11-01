@@ -12,11 +12,6 @@ public class Circle extends Shape2D{
         rigidbody = new Rigidbody2D(pos, 0);
     }
     
-    public Circle(float radius, int x, int y) {
-        this.radius = radius;
-        rigidbody = new Rigidbody2D(new Vector2f(x, y), 0);
-    }
-
     public float getRadius() {
         return radius;
     }
