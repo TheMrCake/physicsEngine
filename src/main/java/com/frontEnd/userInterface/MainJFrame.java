@@ -185,13 +185,16 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
         Random num = new Random();
-        Circle circle = new Circle(num.nextFloat()+num.nextInt(2)/meter, new Vector2f(num.nextInt(
-                this.getPanel().getSize().width)/meter, num.nextInt(this.getPanel().getSize().height)/meter));
+        Vector2f ah = new Vector2f(num.nextInt(
+                this.getPanel().getSize().width)/meter, num.nextInt(this.getPanel().getSize().height)/meter);
+        float a = (num.nextFloat());
+        Circle circle = new Circle(a+1, ah);
+        System.out.println(a + " " + ah.x + " " + ah.y);
         circle.getRigidbody().setMass(1);
         circle.getRigidbody().setCollider(circle);
         listOfShapes.add(circle);
         boolean f = (num.nextInt(3)>=1);
-        getPanel().getPhysicsSystem().addRigidbody(circle.getRigidbody(), f);
+        getPanel().getPhysicsSystem().addRigidbody(circle.getRigidbody(), true); // f);
     }//GEN-LAST:event_jMenuItem10ActionPerformed
 
     /**
@@ -236,6 +239,7 @@ public class MainJFrame extends javax.swing.JFrame {
         Timer timer = new Timer(1000, this);
         
         private PhysicsSystem2D physicsSystem;
+        private draw2D draw;
         
         public void setPhysicsSystem(PhysicsSystem2D physicsSystem, Vector2f g) {
             physicsSystem = new PhysicsSystem2D(2, g);
@@ -249,7 +253,8 @@ public class MainJFrame extends javax.swing.JFrame {
             setPreferredSize(new Dimension(1000, 800));
             setBackground(Color.WHITE);
             setForeground(Color.BLACK);
-            physicsSystem = new PhysicsSystem2D(16.0f, new Vector2f(0, -4f));
+            draw = new draw2D(this.getSize());
+            physicsSystem = new PhysicsSystem2D(16.0f, new Vector2f(0, -0.5f));
             refreshScreen();
         }
         
@@ -259,13 +264,13 @@ public class MainJFrame extends javax.swing.JFrame {
             for(Shape2D i: listOfShapes) {
                 switch(i.getShape()) {
                     case CIRCLE:
-                        draw2D.drawCircle(g, (Circle) i);
+                        draw.drawCircle(g, (Circle) i);
                         break;
                     case BOX:
-                        draw2D.drawBox2D(g, (Box2D) i);
+                        draw.drawBox2D(g, (Box2D) i);
                         break;
                     case AABB:
-                        draw2D.drawAABB(g, (AABB) i);
+                        draw.drawAABB(g, (AABB) i);
                         break;
                 }
             }
