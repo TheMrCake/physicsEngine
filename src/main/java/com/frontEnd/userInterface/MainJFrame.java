@@ -5,7 +5,7 @@
  */
 package com.frontEnd.userInterface;
 
-import com.frontEnd.draw2d.draw2D;
+import com.frontEnd.draw2d.Draw2D;
 import com.physics2d.primitives.*;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -17,7 +17,6 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import org.joml.Random;
 import com.physics2d.PhysicsSystem2D;
-import com.physics2d.rigidbody.Rigidbody2D;
 import org.joml.Vector2f;
 
 /**
@@ -239,7 +238,7 @@ public class MainJFrame extends javax.swing.JFrame {
         Timer timer = new Timer(1000, this);
         
         private PhysicsSystem2D physicsSystem;
-        private draw2D draw;
+        private Draw2D draw;
         
         public void setPhysicsSystem(PhysicsSystem2D physicsSystem, Vector2f g) {
             physicsSystem = new PhysicsSystem2D(2, g);
@@ -253,7 +252,7 @@ public class MainJFrame extends javax.swing.JFrame {
             setPreferredSize(new Dimension(1000, 800));
             setBackground(Color.WHITE);
             setForeground(Color.BLACK);
-            draw = new draw2D(this.getSize());
+            draw = new Draw2D(this.getSize());
             physicsSystem = new PhysicsSystem2D(16.0f, new Vector2f(0, -0.5f));
             refreshScreen();
         }

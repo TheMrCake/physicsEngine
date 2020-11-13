@@ -1,11 +1,11 @@
 package com.physics2d.rigidbody;
 
+import com.frontEnd.draw2d.Transform;
 import com.physics2d.primitives.Collider2D;
 import org.joml.Vector2f;
 
 public class Rigidbody2D {
-    // private Transform rawTransform
-    
+    private Transform rawTransform;
     private Collider2D collider;
     
     private Vector2f position = new Vector2f();
@@ -42,7 +42,7 @@ public class Rigidbody2D {
         // Update the linear position
         this.position.add(new Vector2f(linearVelocity).mul(dt));
         
-        // syncCollisionTransforms();
+        syncCollisionTransforms();
         clearAccumulators();
     }
     
@@ -105,9 +105,6 @@ public class Rigidbody2D {
         return this.collider;
     }
     
-    
-    
-    /*
     public void syncCollisionTransforms() {
         if(rawTransform != null) {
             rawTransform.position.set(this.position);
@@ -118,7 +115,7 @@ public class Rigidbody2D {
         this.rawTransform = rawTransform;
         this.position.set(rawTransform.position);
     }
-    */
+    
 
     public Vector2f getLinearVelocity() {
         return linearVelocity;
